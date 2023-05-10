@@ -13,6 +13,7 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(counterProvider);
+    final number = ref.read(counterProvider.notifier);
 
     return MaterialApp(
       home: Scaffold(
@@ -20,16 +21,42 @@ class MainApp extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '$count',
+              Material(
+                elevation: 10,
+                child: Text(
+                  '$count',
+                  style: const TextStyle(fontSize: 20),
+                ),
+                color: Colors.blueAccent,
               ),
-              MaterialButton(
-                  elevation: 10,
-                  color: Colors.tealAccent,
-                  child: const Text('increase'),
-                  onPressed: () {
-                    ref.read(counterProvider.notifier).increment();
-                  })
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MaterialButton(
+                    elevation: 10,
+                    color: Colors.tealAccent,
+                    child: const Text('increase'),
+                    onPressed: () {
+                      number.increment();
+                    },
+                  ),
+                  MaterialButton(
+                    elevation: 30,
+                    color: const Color.fromARGB(255, 234, 7, 255),
+                    onPressed: () => number.decrement(),
+                    child: const Text('decrease'),
+                  ),
+                  MaterialButton(
+                    elevation: 10,
+                    color: Colors.amber,
+                    onPressed: () => number.reset(),
+                    child: const Text('reset'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
