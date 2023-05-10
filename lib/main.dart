@@ -12,7 +12,7 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(counterProvider).count;
+    final count = ref.watch(counterProvider);
 
     return MaterialApp(
       home: Scaffold(
@@ -26,7 +26,7 @@ class MainApp extends ConsumerWidget {
               MaterialButton(
                   elevation: 10,
                   color: Colors.tealAccent,
-                  child: const Text('increas'),
+                  child: const Text('increase'),
                   onPressed: () {
                     ref.read(counterProvider.notifier).increment();
                   })
