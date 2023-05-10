@@ -1,20 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final counterPrvider = Provider<int>(
-  (ref) {
-    return 0;
-  },
-);
+class CounterState {
+  int count;
 
-final counterProvider = Provider<Counter>((ref) {
-  return Counter(counter: 0);
+  CounterState(this.count);
+}
+
+final counterProvider =
+    StateNotifierProvider<CounterNotifier, CounterState>((ref) {
+  return CounterNotifier(CounterState(0));
 });
 
-class Counter {
-  int counter;
-  Counter({required this.counter});
+class CounterNotifier extends StateNotifier<CounterState> {
+  CounterNotifier(CounterState state) : super(state);
 
-  void increase() {
-    counter++;
+  void increment() {
+    state = CounterState(state.count + 1);
+  }
+
+  void decrement() {
+    state = CounterState(state.count - 1);
+  }
+
+  void reset() {
+    state = CounterState(0);
   }
 }
