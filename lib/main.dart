@@ -16,6 +16,7 @@ class MainApp extends ConsumerWidget {
     final number = ref.read(counterProvider.notifier);
 
     return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
       home: Scaffold(
         body: Center(
           child: Column(
@@ -23,13 +24,13 @@ class MainApp extends ConsumerWidget {
             children: [
               Material(
                 elevation: 10,
+                color: Colors.blueAccent,
                 child: Text(
                   '$count',
                   style: const TextStyle(fontSize: 20),
                 ),
-                color: Colors.blueAccent,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
