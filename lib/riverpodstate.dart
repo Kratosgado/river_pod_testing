@@ -3,14 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final counterProvider = StateNotifierProvider<CounterNotifier, int>((ref) {
-  final counter = CounterNotifier(0);
+  final counter = CounterNotifier(number);
   counter.loadState();
   return counter;
 });
 
+int number = 0;
+
 class CounterNotifier extends StateNotifier<int> {
   CounterNotifier(state) : super(state);
-  int? number;
 
   void increment() {
     state++;
@@ -30,7 +31,7 @@ class CounterNotifier extends StateNotifier<int> {
   void loadState() async {
     final prefs = await SharedPreferences.getInstance();
     number = prefs.getInt('number') ?? 0;
-    state = number!;
+    state = number;
     debugPrint("number loaded *************************: number is $state");
   }
 
